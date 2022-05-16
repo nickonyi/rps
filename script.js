@@ -1,4 +1,15 @@
-let random = Math.random();
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const siz = document.querySelector('#scissors');
+const res = document.querySelector('.res');
+const options = document.querySelectorAll('.option');
+let userScore = 0;
+let computerScore = 0;
+let result = "";
+let win = "You win";
+let lose = "You lose";
+let tie = "It is a tie";
+
 
 function computerplay() {
     const randomNumber = Math.floor(Math.random() * 3);
@@ -14,49 +25,84 @@ function computerplay() {
 }
 
 function singleRound(playerSelection, computerSelection) {
-    if (playerSelection == computerSelection) {
-        return "It's a tie!";
-    } else if (playerSelection == "rock" && computerSelection == "scissors") {
-        return "You win!";
-    } else if (playerSelection == "paper" && computerSelection == "rock") {
-        return "You win!";
-    } else if (playerSelection == "scissors" && computerSelection == "paper") {
-        return "You win!";
-    } else if (playerSelection == "rock" && computerSelection == "paper") {
-        return "You lose!";
-    } else if (playerSelection == "paper" && computerSelection == "scissors") {
-        return "You lose!";
-    } else if (playerSelection == "scissors" && computerSelection == "rock") {
-        return "You lose!";
-    }
-}
-
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    let playerSelection = "";
-    let computerSelection = "";
-    let result = "";
-
-    while (playerScore < 5 && computerScore < 5) {
-        playerSelection = prompt("Rock,Paper,Scissors");
-        playerSelection = playerSelection.toLowerCase();
-        computerSelection = computerplay();
-        result = singleRound(playerSelection, computerSelection);
-
-        if (result == "You win!") {
-            playerScore++;
-        } else if (result == "You lose!") {
+    if (playerSelection.toLowerCase() === "rock") {
+        if (computerSelection === "paper") {
             computerScore++;
+            return lose;
+        } else if (computerSelection === "rock") {
+            return tie;
+        } else {
+            userScore++;
+            return win;
         }
-        console.log("player score:" + playerScore);
-        console.log("computer score:" + computerScore);
-        console.log(result);
     }
 
-    if (playerScore > computerScore) {
-        console.log("You are the winner");
-    } else {
-        console.log("you suck you moron!");
+    if (playerSelection.toLowerCase() === "scissors") {
+        if (computerSelection === "paper") {
+            userScore++;
+            return win;
+        } else if (computerSelection === "rock") {
+            computerScore++;
+            return lose;
+        } else {
+            return tie;
+        }
+    }
+
+    if (playerSelection.toLowerCase() === "paper") {
+        if (computerSelection === "paper") {
+            return tie;
+        } else if (computerSelection === "rock") {
+            userScore++;
+            return win;
+        } else {
+            computerScore++;
+            return lose;
+        }
     }
 }
+
+options.forEach(option => option.addEventListener('click', function() {
+    let playerSelection = this.textContent;
+    let computerSelection = computerplay();
+    result = singleRound(playerSelection, computerSelection);
+    updateScore();
+    checkWinner();
+    if (checkWinner()) {
+        userScore = computerScore = 0;
+        updateScore();
+    };
+
+
+    res.textContent = result;
+
+
+
+
+
+    function updateScore() {
+        document.getElementById('p-score').textContent = userScore;
+        document.getElementById('c-score').textContent = computerScore;
+
+    }
+
+    function checkWinner() {
+        if (userScore === 5 || computerScore === 5) {
+            const winner =
+                userScore === 5 ?
+                "You win the game! Congratulations!" :
+                "Computer wins the game! Try again next time!";
+            alert(winner);
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+
+
+
+
+}));
