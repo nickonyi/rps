@@ -22,40 +22,32 @@ function computerplay() {
 }
 
 function singleRound(playerSelection, computerSelection) {
-    if (playerSelection.toLowerCase() === "rock") {
-        if (computerSelection === "paper") {
-            computerScore++;
-            return lose;
-        } else if (computerSelection === "rock") {
-            return tie;
-        } else {
-            userScore++;
-            return win;
-        }
-    }
+    if (playerSelection == computerSelection) {
+        return "It's a tie!";
+    } else if (playerSelection == "rock" && computerSelection == "scissors") {
+        userScore++;
+        return "You win!";
 
-    if (playerSelection.toLowerCase() === "scissors") {
-        if (computerSelection === "paper") {
-            userScore++;
-            return win;
-        } else if (computerSelection === "rock") {
-            computerScore++;
-            return lose;
-        } else {
-            return tie;
-        }
-    }
+    } else if (playerSelection == "paper" && computerSelection == "rock") {
+        userScore++;
+        return "You win!";
 
-    if (playerSelection.toLowerCase() === "paper") {
-        if (computerSelection === "paper") {
-            return tie;
-        } else if (computerSelection === "rock") {
-            userScore++;
-            return win;
-        } else {
-            computerScore++;
-            return lose;
-        }
+    } else if (playerSelection == "scissors" && computerSelection == "paper") {
+        userScore++;
+        return "You win!";
+
+    } else if (playerSelection == "rock" && computerSelection == "paper") {
+        computerScore++;
+        return "You lose!";
+
+    } else if (playerSelection == "paper" && computerSelection == "scissors") {
+        computerScore++;
+        return "You lose!";
+
+    } else if (playerSelection == "scissors" && computerSelection == "rock") {
+        computerScore++;
+        return "You lose!";
+
     }
 }
 
