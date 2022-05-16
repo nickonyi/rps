@@ -1,6 +1,3 @@
-const rock = document.querySelector('#rock');
-const paper = document.querySelector('#paper');
-const siz = document.querySelector('#scissors');
 const res = document.querySelector('.res');
 const options = document.querySelectorAll('.option');
 let userScore = 0;
