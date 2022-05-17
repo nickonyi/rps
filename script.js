@@ -56,7 +56,7 @@ options.forEach(option => option.addEventListener('click', function() {
     let computerSelection = computerplay();
     result = singleRound(playerSelection, computerSelection);
     updateScore();
-    checkWinner();
+
     if (checkWinner()) {
         userScore = computerScore = 0;
         updateScore();
